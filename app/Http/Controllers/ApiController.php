@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Inbox;
-use Illuminate\Http\Request;
 
-class UserController extends Controller
+use Illuminate\Http\Request;
+use App\Admin;
+class ApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Inbox::all();
-        return response()->json($user);
+        //
     }
 
     /**
@@ -22,9 +21,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showMember()
     {
-        
+        $member = Admin::all();
+        return response()->json($member);
     }
 
     /**
@@ -35,19 +35,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->all();
         $id_chat = $request->chat_id;
-        $image = $request->file('image');
-        $fileName = $id_chat.'.'.$image->getClientOriginalExtension();
-        $request->image->move(public_path('/images'), $fileName);
-        $user = new Inbox;
-        $user->chat_id=$id_chat;
-        $user->message="Sawah anda diserang burung";
-        $user->image = $fileName;
-        $user->save();
-
+        $name   = $request->name;
+        $admin = new Admin;
+        $admin->chat_id = $id_chat;
+        $admin->name = $name;
+        $admin->save();
         return response()->json([
-            'success' => 'Data Berhasil Diinput'
+            'success' => 'Registrasi Berhasil'
         ]);
     }
 
@@ -82,13 +77,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $user = Inbox::find($id);
-        $user->flag = "completed";
-        $user->save();
-        return response()->json([
-            'success' => 'Data Berhasil DiUpdate'
-        ]);
+        //
     }
 
     /**

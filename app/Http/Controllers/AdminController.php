@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inbox;
+use App\Admin;
 class AdminController extends Controller
 {
     /**
@@ -36,9 +37,10 @@ class AdminController extends Controller
         return view('admin.index',['data' => $data]);
     }
     
-    public function create()
+    public function showMember()
     {
-        //
+        $member = Admin::all();
+        return response()->json($member);
     }
 
     /**
@@ -49,7 +51,15 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id_chat = $request->chat_id;
+        $name   = $request->name;
+        $admin = new Admin;
+        $admin->chat_id = $id_chat;
+        $admin->name = $name;
+        $admin->save();
+        return response()->json([
+            'success' => 'Registrasi Berhasil'
+        ]);
     }
 
     /**

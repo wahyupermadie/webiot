@@ -10,17 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::GET('/','AdminController@index');
 Route::GET('/getDate','AdminController@getByDate');
+
+//Api Admin
+Route::POST('/api/admin','ApiController@store');
+Route::GET('/api/admin','ApiController@showMember');
 
 Route::resource('user/','UserController');
 Route::put('user/update/{id}','UserController@update');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
