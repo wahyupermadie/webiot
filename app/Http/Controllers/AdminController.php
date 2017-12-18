@@ -11,17 +11,31 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
+        $datenow = date("y-m-d"); 
         $datum = Inbox::all();
-        return view('admin.index',['data' => $datum]);
+        return view('admin.index',['data' => $datum,'date' => $datenow]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function getByDate(Request $request)
+    {
+        $datx = date($request->getDate);
+        $data = Inbox::select('*')->whereDate('time',$datx)->get();
+        return view('admin.index',['data' => $data]);
+    }
+    
     public function create()
     {
         //

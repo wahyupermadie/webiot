@@ -12,9 +12,14 @@
 */
 
 Route::GET('/','AdminController@index');
+Route::GET('/getDate','AdminController@getByDate');
 
 Route::resource('user/','UserController');
 Route::put('user/update/{id}','UserController@update');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 

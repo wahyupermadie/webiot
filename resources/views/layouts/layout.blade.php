@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet" />
     <!--  Material Dashboard CSS    -->
     <link href="{{asset('assets/css/material-dashboard.css?v=1.2.0')}}" rel="stylesheet" />
     <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -59,6 +60,34 @@
                         </button>
                         <a class="navbar-brand" href="#"> Tetani Dashboard </a>
                     </div>
+                    <div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+							{{--  <li>
+								<a href="https://equivalensi.unud.ac.id" class="" data-toggle="">
+									<i class="material-icons">dashboard</i> Dashboard
+									<!-- <p class="hidden-lg hidden-md">Dashboard</p> -->
+								</a>
+							</li>  --}}
+							<li>
+                                <a href="#">
+                                    <i class="material-icons">streetview</i>
+                                    {{Auth::user()->name}}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="https://equivalensi.unud.ac.id/set_active_role/Mahasiswa">Mahasiswa</a></li>
+                                </ul>
+							</li>
+							<li>
+								<a href="{{url('logout')}}" class="" data-toggle="" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+									<i class="material-icons">cancel</i> LOGOUT
+								</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+							</li>
+						</ul>
+					</div>
                 </div>
             </nav> 
             <section class="content">
@@ -90,20 +119,18 @@
                             </li>
                         </ul>
                     </nav>
-                    <p class="copyright pull-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                    </p>
                 </div>
             </footer>
         </div>
     </div>
+    
 </body>
 <!--   Core JS Files   -->
+@section('js')
+    
 <script src="{{asset('assets/js/jquery-3.2.1.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('momentjs/moment.js')}}"></script>
+<script src="{{ asset('bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/js/material.min.js')}}" type="text/javascript"></script>
 <!--  Charts Plugin -->
@@ -120,4 +147,5 @@
 <script src="{{asset('assets/js/material-dashboard.js?v=1.2.0')}}"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{asset('assets/js/demo.js')}}"></script>
+@show
 </html>
